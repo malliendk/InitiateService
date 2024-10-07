@@ -13,7 +13,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Slf4j
 public class InitiateGamePostService {
 
-    private final WebClient webClient;
     private final RestClient restClient;
 
     public void initiateServicesAndSchedulers(GameDTO gameDTO) {
