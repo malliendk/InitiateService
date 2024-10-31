@@ -12,5 +12,4 @@ public class GameDTO {
     private Long id;
     private SupervisorDTO supervisor;
     private List<BuildingDTO> buildings;
-    private List<SolarPanelSetDTO> solarPanelSets;
 }

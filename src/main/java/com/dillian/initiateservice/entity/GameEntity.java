@@ -1,4 +1,4 @@
-package com.dillian.initiateservice;
+package com.dillian.initiateservice.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

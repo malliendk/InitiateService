@@ -1,12 +1,12 @@
 package com.dillian.initiateservice.services;
 
 import com.dillian.initiateservice.dtos.GameDTO;
+import com.dillian.initiateservice.util.ServerURLs;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
-import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 @AllArgsConstructor
@@ -15,58 +15,44 @@ public class InitiateGamePostService {
 
     private final RestClient restClient;
 
-    public void initiateServicesAndSchedulers(GameDTO gameDTO) {
+    public void initiateServicesAndSchedulers(GameDTO initiateGameDTO) {
+        pushToUpdateService(initiateGameDTO);
+        pushToBff(initiateGameDTO);
         startEventScheduler();
-        startDayWeatherScheduler();
-        pushToUpdateService(gameDTO);
-        pushToBff(gameDTO);
     }
-
 
     public void startEventScheduler() {
-        webClient.post()
-                .uri("http://localhost:8081/event/scheduler/start")
+        ResponseEntity<Void> response = restClient
+                .post()
+                .uri(ServerURLs.BUILDING_SERVICE_URL + "/scheduler/start")
                 .retrieve()
-                .toBodilessEntity()
-                .doOnSuccess(response -> log.info("Event scheduler successfully started"))
-                .doOnError(error -> log.error("Event scheduler failed to start", error))
-                .block();
-    }
-
-    public void startDayWeatherScheduler() {
-        webClient.post()
-                .uri("http://localhost:8081/day-weather/start")
-                .retrieve()
-                .toBodilessEntity()
-                .doOnSuccess(response -> log.info("Day weather scheduler successfully started"))
-                .doOnError(error -> log.error("Day weather scheduler failed to start", error))
-                .block();
-    }
-
-    public void pushToUpdateService(GameDTO gameDTO) {
-        try {
-            ResponseEntity<Void> response = restClient.post()
-                    .uri("http://localhost:8082/game")
-                    .body(gameDTO)
-                    .retrieve()
-                    .toBodilessEntity();
-            if (response.getStatusCode().is2xxSuccessful()) {
-                log.info("GameDTO successfully pushed to update service: {}", gameDTO);
-            }
-        } catch (Exception e) {
-            log.error("Error pushing GameDTO to update service: {}", e.getMessage());
+                .toBodilessEntity();
+        if (response.getStatusCode().is2xxSuccessful()) {
+            log.info("Event scheduler successfully started");
         }
     }
 
-    public void pushToBff(GameDTO gameDTO) {
-        ResponseEntity<GameDTO> response = ResponseEntity.ok(webClient.post()
-                        .uri("http://localhost:8083/game")
-                        .bodyValue(gameDTO)
-                        .retrieve()
-                        .bodyToMono(GameDTO.class)
-                        .block());
-        if (response.getStatusCode().is2xxSuccessful()) {
-            log.info("GameDto successfully pushed to backend-for-frontend: {}", gameDTO);
+    public void pushToUpdateService(GameDTO initiateDTO) {
+        ResponseEntity<GameDTO> response = restClient
+                .post()
+                .uri(ServerURLs.UPDATE_SERVICE_URL + "/game/start")
+                .body(initiateDTO)
+                .retrieve()
+                .toEntity(GameDTO.class);
+        if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+            log.info("GameDTO successfully pushed to update service: {}", initiateDTO);
+        }
+    }
+
+    public void pushToBff(GameDTO initiateDTO) {
+        ResponseEntity<GameDTO> response = restClient
+                .post()
+                .uri(ServerURLs.BACKEND_FOR_FRONTEND_URL + "/game/start")
+                .body(initiateDTO)
+                .retrieve()
+                .toEntity(GameDTO.class);
+        if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+            log.info("GameDto successfully pushed to backend-for-frontend: {}", initiateDTO);
         }
     }
 }
