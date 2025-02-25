@@ -1,27 +1,35 @@
 package com.dillian.initiateservice.controller;
 
-import com.dillian.initiateservice.dtos.GameDTO;
-import com.dillian.initiateservice.dtos.InitiateDTO;
+import com.dillian.initiateservice.dtos.GameTransferDTO;
+import com.dillian.initiateservice.exceptions.SolarPanelCapacityException;
 import com.dillian.initiateservice.services.GameDtoBuilderService;
 import com.dillian.initiateservice.services.InitiateGamePostService;
+import com.dillian.initiateservice.services.PurchaseValidationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("game")
+@CrossOrigin()
+@RequestMapping()
 @AllArgsConstructor
 public class GameController {
 
     private final GameDtoBuilderService builderService;
     private final InitiateGamePostService initiateGamePostService;
+    private final PurchaseValidationService purchaseValidationService;
 
-    @PostMapping("start")
-    public ResponseEntity<GameDTO> startGame(@RequestBody InitiateDTO initDto) {
-        GameDTO gameDto = builderService.assembleInitiateDTO(initDto);
-        return ResponseEntity.ok(gameDto);
+    @PostMapping()
+    public ResponseEntity<GameTransferDTO> startGame() {
+        GameTransferDTO gameTransferDto = builderService.assembleInitiateDTO();
+        initiateGamePostService.initiateCalculationService(gameTransferDto);
+        return ResponseEntity.ok(gameTransferDto);
+    }
+
+    @PutMapping()
+    public ResponseEntity<GameTransferDTO> updateGameDTO(@RequestBody GameTransferDTO gameTransferDto) throws SolarPanelCapacityException {
+//        purchaseValidationService.validateSolarPanelCapacity(gameDto);
+        initiateGamePostService.updateGameCalculationService(gameTransferDto);
+        return ResponseEntity.ok(gameTransferDto);
     }
 }

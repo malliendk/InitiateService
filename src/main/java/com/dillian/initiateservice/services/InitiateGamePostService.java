@@ -1,6 +1,6 @@
 package com.dillian.initiateservice.services;
 
-import com.dillian.initiateservice.dtos.GameDTO;
+import com.dillian.initiateservice.dtos.GameTransferDTO;
 import com.dillian.initiateservice.util.ServerURLs;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,44 +15,31 @@ public class InitiateGamePostService {
 
     private final RestClient restClient;
 
-    public void initiateServicesAndSchedulers(GameDTO initiateGameDTO) {
-        pushToUpdateService(initiateGameDTO);
-        pushToBff(initiateGameDTO);
-        startEventScheduler();
-    }
-
-    public void startEventScheduler() {
-        ResponseEntity<Void> response = restClient
+    public void initiateCalculationService(GameTransferDTO initiateDTO) {
+        log.info("Pushing to calculation service");
+        log.info("Outgoing GameDTO: {}", initiateDTO);
+        ResponseEntity<GameTransferDTO> response = restClient
                 .post()
-                .uri(ServerURLs.BUILDING_SERVICE_URL + "/scheduler/start")
+                .uri(ServerURLs.CALCULATION_SERVICE_URL)
+                .body(initiateDTO)
                 .retrieve()
-                .toBodilessEntity();
-        if (response.getStatusCode().is2xxSuccessful()) {
-            log.info("Event scheduler successfully started");
+                .toEntity(GameTransferDTO.class);
+        if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+            log.info("Calculation Service successfully initiated: {}", initiateDTO);
         }
     }
 
-    public void pushToUpdateService(GameDTO initiateDTO) {
-        ResponseEntity<GameDTO> response = restClient
-                .post()
-                .uri(ServerURLs.UPDATE_SERVICE_URL + "/game/start")
-                .body(initiateDTO)
+    public void updateGameCalculationService(GameTransferDTO updatedDTO) {
+        log.info("Updating game DTO to calculation service");
+        log.info("Outgoing updated GameDTO: {}", updatedDTO);
+        ResponseEntity<GameTransferDTO> response = restClient
+                .put()
+                .uri(ServerURLs.CALCULATION_SERVICE_URL)
+                .body(updatedDTO)
                 .retrieve()
-                .toEntity(GameDTO.class);
+                .toEntity(GameTransferDTO.class);
         if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-            log.info("GameDTO successfully pushed to update service: {}", initiateDTO);
-        }
-    }
-
-    public void pushToBff(GameDTO initiateDTO) {
-        ResponseEntity<GameDTO> response = restClient
-                .post()
-                .uri(ServerURLs.BACKEND_FOR_FRONTEND_URL + "/game/start")
-                .body(initiateDTO)
-                .retrieve()
-                .toEntity(GameDTO.class);
-        if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-            log.info("GameDto successfully pushed to backend-for-frontend: {}", initiateDTO);
+            log.info("Calculation Service successfully updated: {}", updatedDTO);
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.dillian.initiateservice.services;
 
-import com.dillian.initiateservice.dtos.*;
-import com.dillian.initiateservice.util.Constants;
+import com.dillian.initiateservice.dtos.SupervisorDTO;
+import com.dillian.initiateservice.util.BuildingIds;
 import com.dillian.initiateservice.util.ServerURLs;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,10 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
@@ -22,8 +20,8 @@ public class EntityRetrieveService {
 
     private final RestClient restClient;
 
-    public SupervisorDTO getSupervisorDTO(InitiateDTO initDto) {
-        String url = "http://localhost:8091/supervisor/" + initDto.getSupervisorId();
+    public SupervisorDTO getSupervisorDTO(Long supervisorId) {
+        String url = ServerURLs.SUPERVISOR_SERVICE_URL + "/" + supervisorId;
         ResponseEntity<SupervisorDTO> response = restClient
                 .get()
                 .uri(url)
@@ -40,28 +38,19 @@ public class EntityRetrieveService {
         return supervisor;
     }
 
-    public List<BuildingDTO> getBuildings() {
-        String ids = Stream.of(Constants.TOWN_HALL_ID, Constants.COAL_PLANT_ID)
-                .map(String::valueOf)
-                .collect(Collectors.joining(", "));
-        String url = ServerURLs.BUILDING_SERVICE_URL + "/building?ids=" + ids;
-        ResponseEntity<List<BuildingDTO>> response = restClient
-                .get()
-                .uri(url)
+    public Map<Long, Integer> getBuildings() {
+        List<Long> ids = List.of(BuildingIds.TOWN_HALL, BuildingIds.COAL_PLANT, BuildingIds.GAS_PLANT,
+                BuildingIds.TRANSFORMATOR_HUISJE, BuildingIds.TRANSFORMATOR_HUISJE, BuildingIds.TRANSFORMATOR_HUISJE,
+                BuildingIds.HOOGSPANNINGS_STATIOM, BuildingIds.MIDDENSPANNINGS_STATION, BuildingIds.MIDDENSPANNINGS_STATION,
+                BuildingIds.HOOGSPANNINGS_MAST, BuildingIds.ELECTRIC_PARKING_LOT, BuildingIds.VRIJSTAAND_HUIS);
+
+        final ResponseEntity<Map<Long, Integer>> reponse = restClient
+                .post()
+                .uri(ServerURLs.BUILDING_SERVICE_URL + "/id-map")
+                .body(ids)
                 .retrieve()
                 .toEntity(new ParameterizedTypeReference<>() {
                 });
-        List<BuildingDTO> retrievedList = response.getBody();
-        if (response.getStatusCode().is2xxSuccessful()) {
-            log.info("GET BuildingService Buildings call successfully made");
-        }
-        if (retrievedList != null && retrievedList.size() == 2) {
-            log.info("successfully retrieved 2 buildings: {}", retrievedList);
-            retrievedList = retrievedList
-                    .stream()
-                    .sorted(Comparator.comparing(BuildingDTO::getId))
-                    .toList();
-        }
-        return retrievedList;
+        return reponse.getBody();
     }
 }
