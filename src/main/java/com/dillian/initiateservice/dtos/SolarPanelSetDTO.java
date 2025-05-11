@@ -1,5 +1,6 @@
 package com.dillian.initiateservice.dtos;
 
+import com.dillian.initiateservice.util.BuildingIds;
 import com.dillian.initiateservice.util.StartingValues;
 import lombok.Getter;
 import lombok.Setter;

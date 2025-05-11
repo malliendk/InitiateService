@@ -41,16 +41,15 @@ public class EntityRetrieveService {
     public Map<Long, Integer> getBuildings() {
         List<Long> ids = List.of(BuildingIds.TOWN_HALL, BuildingIds.COAL_PLANT, BuildingIds.GAS_PLANT,
                 BuildingIds.TRANSFORMATOR_HUISJE, BuildingIds.TRANSFORMATOR_HUISJE, BuildingIds.TRANSFORMATOR_HUISJE,
-                BuildingIds.HOOGSPANNINGS_STATIOM, BuildingIds.MIDDENSPANNINGS_STATION, BuildingIds.MIDDENSPANNINGS_STATION,
+                BuildingIds.HOOGSPANNINGS_STATION, BuildingIds.MIDDENSPANNINGS_STATION, BuildingIds.MIDDENSPANNINGS_STATION,
                 BuildingIds.HOOGSPANNINGS_MAST, BuildingIds.ELECTRIC_PARKING_LOT, BuildingIds.VRIJSTAAND_HUIS);
-
-        final ResponseEntity<Map<Long, Integer>> reponse = restClient
+        final ResponseEntity<Map<Long, Integer>> response = restClient
                 .post()
                 .uri(ServerURLs.BUILDING_SERVICE_URL + "/id-map")
                 .body(ids)
                 .retrieve()
                 .toEntity(new ParameterizedTypeReference<>() {
                 });
-        return reponse.getBody();
+        return response.getBody();
     }
 }
