@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class InitiateDTOBuilderService {
+public class GameCreationService {
 
     public InitiateDTO assembleInitiateDTO() {
         InitiateDTO initialInitiateDTO = new InitiateDTO();
@@ -33,21 +33,21 @@ public class InitiateDTOBuilderService {
 
     private List<BuildingRequestDTO> selectStartingBuildings() {
         return List.of(
-                new BuildingRequestDTO(BuildingIds.TRANSFORMATOR_HUISJE, 0, new HashMap<>()),
-                new BuildingRequestDTO(BuildingIds.TRANSFORMATOR_HUISJE, 0, new HashMap<>()),
-                new BuildingRequestDTO(BuildingIds.TRANSFORMATOR_HUISJE, 0, new HashMap<>()),
-                new BuildingRequestDTO(BuildingIds.MIDDENSPANNINGS_STATION, 0, new HashMap<>()),
-                new BuildingRequestDTO(BuildingIds.MIDDENSPANNINGS_STATION, 0, new HashMap<>()),
-                new BuildingRequestDTO(BuildingIds.HOOGSPANNINGS_STATION, 0, new HashMap<>()),
-                new BuildingRequestDTO(BuildingIds.HOOGSPANNINGS_MAST, 0, new HashMap<>()),
-                new BuildingRequestDTO(BuildingIds.VRIJSTAAND_HUIS, 0, new HashMap<>()),
-                new BuildingRequestDTO(BuildingIds.VRIJSTAAND_HUIS, 0, new HashMap<>()),
-                new BuildingRequestDTO(BuildingIds.TOWN_HALL, 100, new HashMap<>()),
-                new BuildingRequestDTO(BuildingIds.COAL_PLANT, 0, new HashMap<>()),
-                new BuildingRequestDTO(BuildingIds.GAS_PLANT, 0, new HashMap<>()),
-                new BuildingRequestDTO(BuildingIds.ELECTRIC_PARKING_LOT, 0, new HashMap<>()),
-                new BuildingRequestDTO(BuildingIds.INDUSTRIAL_AREA, 0, new HashMap<>()),
-                new BuildingRequestDTO(BuildingIds.INDUSTRIAL_AREA, 0, new HashMap<>())
+                new BuildingRequestDTO(BuildingIds.TRANSFORMATOR_HUISJE, 0, 0, 0, 0,0,0),
+                new BuildingRequestDTO(BuildingIds.TRANSFORMATOR_HUISJE, 0,0,0,0,0, 0),
+                new BuildingRequestDTO(BuildingIds.TRANSFORMATOR_HUISJE, 0, 0, 0, 0,0, 0),
+                new BuildingRequestDTO(BuildingIds.MIDDENSPANNINGS_STATION, 0, 0, 0, 0,0, 0),
+                new BuildingRequestDTO(BuildingIds.MIDDENSPANNINGS_STATION, 0, 0, 0, 0,0, 0),
+                new BuildingRequestDTO(BuildingIds.HOOGSPANNINGS_STATION, 0, 0, 0, 0,0, 0),
+                new BuildingRequestDTO(BuildingIds.HOOGSPANNINGS_MAST, 0, 0, 0, 0,0, 0),
+                new BuildingRequestDTO(BuildingIds.VRIJSTAAND_HUIS, 2, 10, 4, 2,2, 0),
+                new BuildingRequestDTO(BuildingIds.VRIJSTAAND_HUIS, 2, 10, 4, 2,2, 0),
+                new BuildingRequestDTO(BuildingIds.TOWN_HALL, 100, 500, 100, 0, 100, 100),
+                new BuildingRequestDTO(BuildingIds.COAL_PLANT, 0, 5000, 0, 0,0, 0),
+                new BuildingRequestDTO(BuildingIds.GAS_PLANT, 0, 5000, 0, 0,0, 0),
+                new BuildingRequestDTO(BuildingIds.ELECTRIC_PARKING_LOT, 0, 0, 18, 0,0, 0),
+                new BuildingRequestDTO(BuildingIds.INDUSTRIAL_AREA, 0, 0, 56, 0,0, 0),
+                new BuildingRequestDTO(BuildingIds.INDUSTRIAL_AREA, 0, 0, 56, 0,0, 0)
         );
     }
 
@@ -83,10 +83,10 @@ public class InitiateDTOBuilderService {
 
     private List<Tile> createStartingTiles() {
         return List.of(
-                new Tile(1L, BuildingIds.TRANSFORMATOR_HUISJE, 1L),
-                new Tile(2L, BuildingIds.VRIJSTAAND_HUIS, 1L),
-                new Tile(3L, BuildingIds.VRIJSTAAND_HUIS, 1L),
-                new Tile(4L, null, 1L),
+                new Tile(1L, BuildingIds.COAL_PLANT, 1L),
+                new Tile(2L, BuildingIds.HOOGSPANNINGS_STATION, 1L),
+                new Tile(3L, BuildingIds.HOOGSPANNINGS_MAST, 1L),
+                new Tile(4L, BuildingIds.TRANSFORMATOR_HUISJE, 1L),
                 new Tile(5L, null, 1L),
                 new Tile(6L, null, 1L),
                 new Tile(7L, BuildingIds.TRANSFORMATOR_HUISJE, 1L),
@@ -97,8 +97,8 @@ public class InitiateDTOBuilderService {
                 new Tile(12L, null, 1L),
                 new Tile(13L, BuildingIds.TRANSFORMATOR_HUISJE, 2L),
                 new Tile(14L, BuildingIds.MIDDENSPANNINGS_STATION, 2L),
-                new Tile(15L, null, 2L),
-                new Tile(16L, null, 2L),
+                new Tile(15L, BuildingIds.VRIJSTAAND_HUIS, 2L),
+                new Tile(16L, BuildingIds.VRIJSTAAND_HUIS, 2L),
                 new Tile(17L, null, 2L),
                 new Tile(18L, BuildingIds.TOWN_HALL, 2L),
                 new Tile(19L, BuildingIds.ELECTRIC_PARKING_LOT, 2L),
@@ -107,21 +107,21 @@ public class InitiateDTOBuilderService {
                 new Tile(22L, null, 2L),
                 new Tile(23L, null, 2L),
                 new Tile(24L, null, 2L),
-                new Tile(25L, BuildingIds.MIDDENSPANNINGS_STATION, 2L),
-                new Tile(26L, null, 2L),
-                new Tile(27L, null, 2L),
-                new Tile(28L, null, 2L),
-                new Tile(29L, null, 2L),
-                new Tile(30L, null, 2L),
-                new Tile(31L, BuildingIds.HOOGSPANNINGS_STATION, 4L),
-                new Tile(32L, null, 4L),
-                new Tile(33L, null, 4L),
-                new Tile(34L, null, 4L),
+                new Tile(25L, BuildingIds.MIDDENSPANNINGS_STATION, 3L),
+                new Tile(26L, null, 3L),
+                new Tile(27L, null, 3L),
+                new Tile(28L, null, 3L),
+                new Tile(29L, null, 3L),
+                new Tile(30L, BuildingIds.MIDDENSPANNINGS_STATION, 3L),
+                new Tile(31L, BuildingIds.INDUSTRIAL_AREA, 3L),
+                new Tile(32L, null, 3L),
+                new Tile(33L, null, 3L),
+                new Tile(34L, null, 3L),
                 new Tile(35L, null, 3L),
                 new Tile(36L, null, 3L),
-                new Tile(37L, BuildingIds.COAL_PLANT, 4L),
+                new Tile(37L, null, 4L),
                 new Tile(38L, BuildingIds.GAS_PLANT, 4L),
-                new Tile(39L, BuildingIds.INDUSTRIAL_AREA, 4L),
+                new Tile(39L, BuildingIds.HOOGSPANNINGS_STATION, 4L),
                 new Tile(40L, BuildingIds.HOOGSPANNINGS_MAST, 4L),
                 new Tile(41L, null, 4L),
                 new Tile(42L, null, 4L),

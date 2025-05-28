@@ -17,7 +17,7 @@ public class BuildingIds {
     public static final Long APARTMENT_BUILDING = 22L;
     public static final Long ELECTRIC_PARKING_LOT = 30L;
     public static final Long INDUSTRIAL_AREA = 32L;
-//    public static final Long OFFICE_BUILDING = 32L;
+    public static final Long OFFICE_BUILDING = 33L;
     public static final Long COAL_PLANT = 40L;
     public static final Long GAS_PLANT = 41L;
     public static final Long HYDROGEN_PLANT = 42L;

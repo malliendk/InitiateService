@@ -15,5 +15,9 @@ public class BuildingRequestDTO {
 
     private Long buildingId;
     private int solarPanelAmount;
-    private Map<String, Object> propertiesMap;
+    private int energyProduction;
+    private int goldIncome;
+    private int popularityIncome;
+    private int researchIncome;
+    private int environmentalScore;
 }

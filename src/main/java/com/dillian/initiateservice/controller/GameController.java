@@ -1,7 +1,7 @@
 package com.dillian.initiateservice.controller;
 
 import com.dillian.initiateservice.dtos.InitiateDTO;
-import com.dillian.initiateservice.services.InitiateDTOBuilderService;
+import com.dillian.initiateservice.services.GameCreationService;
 import com.dillian.initiateservice.services.InitiateGamePostService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class GameController {
 
-    private final InitiateDTOBuilderService builderService;
+    private final GameCreationService builderService;
     private final InitiateGamePostService initiateGamePostService;
 
     @PostMapping()
