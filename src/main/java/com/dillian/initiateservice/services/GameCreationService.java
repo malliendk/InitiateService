@@ -64,7 +64,6 @@ public class GameCreationService {
         District district4 = new District();
         district4.setId(4L);
         district4.setTiles(new ArrayList<>());
-
         for (Tile tile : tiles) {
             if (tile.getDistrictId() == 1L) {
                 district1.getTiles().add(tile);
@@ -76,7 +75,6 @@ public class GameCreationService {
                 district4.getTiles().add(tile);
             }
         }
-
         return List.of(district1, district2, district3, district4);
     }
 
@@ -97,8 +95,8 @@ public class GameCreationService {
                 new Tile(12L, null, 1L),
                 new Tile(13L, BuildingIds.TRANSFORMATOR_HUISJE, 2L),
                 new Tile(14L, BuildingIds.MIDDENSPANNINGS_STATION, 2L),
-                new Tile(15L, BuildingIds.VRIJSTAAND_HUIS, 2L),
-                new Tile(16L, BuildingIds.VRIJSTAAND_HUIS, 2L),
+                new Tile(15L, null, 2L),
+                new Tile(16L, null, 2L),
                 new Tile(17L, null, 2L),
                 new Tile(18L, BuildingIds.TOWN_HALL, 2L),
                 new Tile(19L, BuildingIds.ELECTRIC_PARKING_LOT, 2L),
@@ -108,8 +106,8 @@ public class GameCreationService {
                 new Tile(23L, null, 2L),
                 new Tile(24L, null, 2L),
                 new Tile(25L, BuildingIds.MIDDENSPANNINGS_STATION, 3L),
-                new Tile(26L, null, 3L),
-                new Tile(27L, null, 3L),
+                new Tile(26L, BuildingIds.VRIJSTAAND_HUIS, 3L),
+                new Tile(27L, BuildingIds.VRIJSTAAND_HUIS, 3L),
                 new Tile(28L, null, 3L),
                 new Tile(29L, null, 3L),
                 new Tile(30L, BuildingIds.MIDDENSPANNINGS_STATION, 3L),
