@@ -16,6 +16,7 @@ public class InitiateGamePostService {
     private final RestClient restClient;
 
     public void initiateCalculationService(InitiateDTO initiateDTO) {
+        log.info("outgoing supervisorID: " + initiateDTO.getSupervisor());
         log.info("Pushing to calculation service");
         log.info("Outgoing GameDTO: {}", initiateDTO);
         restClient

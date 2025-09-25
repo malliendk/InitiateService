@@ -12,7 +12,7 @@ import java.util.List;
 public class InitiateDTO {
 
     private Long id;
-    //    private SupervisorDTO supervisor;
+    private SupervisorDTO supervisor;
     private List<BuildingRequestDTO> buildingRequests;
     private List<Tile> tiles;
     private List<District> districts;

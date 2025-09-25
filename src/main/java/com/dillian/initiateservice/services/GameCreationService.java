@@ -1,9 +1,6 @@
 package com.dillian.initiateservice.services;
 
-import com.dillian.initiateservice.dtos.BuildingRequestDTO;
-import com.dillian.initiateservice.dtos.District;
-import com.dillian.initiateservice.dtos.InitiateDTO;
-import com.dillian.initiateservice.dtos.Tile;
+import com.dillian.initiateservice.dtos.*;
 import com.dillian.initiateservice.util.BuildingIds;
 import com.dillian.initiateservice.util.StartingValues;
 import lombok.AllArgsConstructor;
@@ -11,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -19,12 +15,14 @@ import java.util.List;
 @Slf4j
 public class GameCreationService {
 
-    public InitiateDTO assembleInitiateDTO() {
+    public InitiateDTO assembleInitiateDTO(SupervisorDTO supervisor) {
         InitiateDTO initialInitiateDTO = new InitiateDTO();
         initialInitiateDTO.setId(1L);
         initialInitiateDTO.setFunds(StartingValues.FUNDS_STARTING_AMOUNT);
         initialInitiateDTO.setPopularity(StartingValues.POPULARITY_STARTING_AMOUNT);
+        initialInitiateDTO.setResearch(StartingValues.RESEARCH_STARTING_AMOUNT);
         initialInitiateDTO.setBuildingRequests(selectStartingBuildings());
+        initialInitiateDTO.setSupervisor(supervisor);
         final List<Tile> startingTiles = createStartingTiles();
         initialInitiateDTO.setTiles(startingTiles);
         initialInitiateDTO.setDistricts(createStartingDistricts(startingTiles));
@@ -77,7 +75,6 @@ public class GameCreationService {
         }
         return List.of(district1, district2, district3, district4);
     }
-
 
     private List<Tile> createStartingTiles() {
         return List.of(

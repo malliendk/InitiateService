@@ -1,6 +1,8 @@
 package com.dillian.initiateservice.controller;
 
 import com.dillian.initiateservice.dtos.InitiateDTO;
+import com.dillian.initiateservice.dtos.SupervisorDTO;
+import com.dillian.initiateservice.dtos.SupervisorRequest;
 import com.dillian.initiateservice.services.GameCreationService;
 import com.dillian.initiateservice.services.InitiateGamePostService;
 import lombok.AllArgsConstructor;
@@ -18,8 +20,8 @@ public class GameController {
     private final InitiateGamePostService initiateGamePostService;
 
     @PostMapping()
-    public ResponseEntity<InitiateDTO> startGame() {
-        InitiateDTO initiateDTO = builderService.assembleInitiateDTO();
+    public ResponseEntity<InitiateDTO> startGame(@RequestBody SupervisorDTO supervisor) {
+        InitiateDTO initiateDTO = builderService.assembleInitiateDTO(supervisor);
         initiateGamePostService.initiateCalculationService(initiateDTO);
         return ResponseEntity.ok(initiateDTO);
     }
