@@ -1,29 +1,21 @@
-package com.dillian.initiateservice.dtos;
+package com.dillian.initiateservice.dtos
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-@Getter
-@Setter
-@ToString
-public class SupervisorDTO {
-
-    private Long id;
-    private String name;
-    private String imageUrl;
-    private String biography;
-    private String classType;
-    private String type;
-    private String specialAbility;
-    private int perkGoldIncome;
-    private int perkGoldCost;
-    private int perkPopularityIncome;
-    private int perkPopularityCost;
-    private int perkResearchIncome;
-    private int perkResearchCost;
-    private int perkEnvironmentalIncome;
-    private int perkGridEfficiency;
-    private int perkLineResilience;
-    private int specialPerk;
-}
+class SupervisorDTO(
+    val id: Long = 0,
+    val name: String = "",
+    val imageUrl: String = "",
+    val biography: String = "",
+    val classType: String = "",
+    val type: String = "",
+    val specialAbility: String = "",
+    var perkGoldIncome: Int = 0,
+    var perkGoldCost: Int = 0,
+    var perkPopularityIncome: Int = 0,
+    var perkPopularityCost: Int = 0,
+    var perkResearchIncome: Int = 0,
+    var perkResearchCost: Int = 0,
+    var perkEnvironmentalIncome: Int = 0,
+    var perkGridEfficiency: Int = 0,
+    var perkLineResilience: Int = 0,
+    var specialPerk: Int = 0
+)

@@ -1,23 +1,13 @@
-package com.dillian.initiateservice.dtos;
+package com.dillian.initiateservice.dtos
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+data class InitiateDTO(
 
-import java.util.List;
-
-@Getter
-@Setter
-@ToString
-public class InitiateDTO {
-
-    private Long id;
-    private SupervisorDTO supervisor;
-    private List<BuildingRequestDTO> buildingRequests;
-    private List<Tile> tiles;
-    private List<District> districts;
-    private int funds;
-    private int popularity;
-    private int research;
-    private int environmentalScore;
-}
+    var id: Long = 0,
+    var supervisor: SupervisorDTO? = null,
+    var buildingRequests: List<BuildingRequestDTO> = mutableListOf(),
+    var tiles: List<Tile> = mutableListOf(),
+    var funds: Int = 0,
+    var popularity: Int = 0,
+    var research: Int = 0,
+    var environmentalScore: Int = 0
+)

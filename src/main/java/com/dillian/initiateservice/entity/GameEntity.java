@@ -1,19 +1,24 @@
 package com.dillian.initiateservice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.dillian.initiateservice.dtos.District;
+import com.dillian.initiateservice.dtos.Tile;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
 public class GameEntity {
 
-    @Id
-    @GeneratedValue
     private Long id;
+    private String supervisorName;
+    private List<Integer> buildingRequests;
+    private List<Tile> tiles;
+    private int funds;
+    private int popularity;
+    private int research;
+    private int environmentalScore;
 }

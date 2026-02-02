@@ -17,11 +17,10 @@ public class BuildingDTO {
     private String imageUri;
     private int gridCapacity;
     private int energyProduction;
-    private int houseHolds;
+    private int housing;
     private int energyConsumption;
+    private int goldIncome;
     private int popularityIncome;
     private int researchIncome;
-    private int solarPanelAmount;
-    private int solarPanelCapacity;
-    private SolarPanelSetDTO solarPanels;
+    private boolean canBePurchased;
 }

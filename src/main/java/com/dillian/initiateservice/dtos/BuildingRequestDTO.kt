@@ -1,23 +1,12 @@
-package com.dillian.initiateservice.dtos;
+package com.dillian.initiateservice.dtos
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+data class BuildingRequestDTO (
 
-import java.util.Map;
-
-@Getter
-@Setter
-@AllArgsConstructor
-@ToString
-public class BuildingRequestDTO {
-
-    private Long buildingId;
-    private int solarPanelAmount;
-    private int energyProduction;
-    private int goldIncome;
-    private int popularityIncome;
-    private int researchIncome;
-    private int environmentalScore;
-}
+     var buildingId: Long = 0,
+     var energyProduction: Int = 0,
+     var goldIncome: Int = 0,
+     var popularityIncome: Int = 0,
+     var researchIncome: Int = 0,
+     var environmentalScore: Int = 0,
+     var solarPanelAmount: Int = 0,
+     )
