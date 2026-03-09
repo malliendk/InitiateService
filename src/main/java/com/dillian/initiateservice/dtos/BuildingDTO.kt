@@ -1,26 +1,22 @@
-package com.dillian.initiateservice.dtos;
+package com.dillian.initiateservice.dtos
 
-
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-
-@Getter
-@Setter
-@ToString
-public class BuildingDTO {
-
-    private Long id;
-    private String name;
-    private String description;
-    private int price;
-    private String imageUri;
-    private int gridCapacity;
-    private int energyProduction;
-    private int housing;
-    private int energyConsumption;
-    private int goldIncome;
-    private int popularityIncome;
-    private int researchIncome;
-    private boolean canBePurchased;
-}
+/**
+ * Data Transfer Object for Building information
+ */
+class BuildingDTO(
+    var id: Int = 0,
+    val name: String = "",
+    val description: String = "",
+    val price: Int = 0,
+    val imageUri: String = "",
+    val gridCapacity: Int = 0,
+    val energyProduction: Int = 0,
+    val housing: Int = 0,
+    val energyConsumption: Int = 0,
+    val goldIncome: Int = 0,
+    val popularityIncome: Int = 0,
+    val researchIncome: Int = 0,
+    val solarPanelAmount: Int = 0,
+    val solarPanelCapacity: Int = 0,
+    val canBePurchased: Boolean = false
+)
