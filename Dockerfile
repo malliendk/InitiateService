@@ -1,14 +1,5 @@
 FROM eclipse-temurin:21-jdk
-
-# Set the working directory in the container
 WORKDIR /app
-
-# Copy the application JAR file to the container
-# (Replace 'your-application.jar' with your actual JAR file name)
-COPY your-application.jar /app/your-application.jar
-
-# Expose the port your application uses (e.g., 8080)
+COPY target/EnergyManagement-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
-
-# Command to run the application
-CMD ["java", "-jar", "/app/your-application.jar"]
+CMD ["java", "-jar", "app.jar"]
